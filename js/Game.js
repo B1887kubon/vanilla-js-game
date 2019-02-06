@@ -3,7 +3,6 @@ import Counter from './Counter'
 
 export default class Game {
   birds = []
-  counter = 0
 
   constructor() {
     this.createBirds()
@@ -13,11 +12,6 @@ export default class Game {
 
   createCounter() {
     this.counter = new Counter()
-    this.counter.addPlayerPoint()
-    this.counter.addPlayerPoint()
-    this.counter.addBirdsPoint()
-    this.counter.addBirdsPoint()
-    this.counter.addBirdsPoint()
   }
 
   createBirds() {
@@ -29,10 +23,20 @@ export default class Game {
 
   addBird() {
     const config = {
-      removeBird: this.removeBird,
+      onRemove: this.removeBird,
+      onClick: this.updatePlayerPoint,
+      onEscape: this.updateBirdsPoints,
     }
 
     this.birds = [...this.birds, new Bird(config)]
+  }
+
+  updateBirdsPoints = () => {
+    this.counter.addBirdsPoint()
+  }
+
+  updatePlayerPoint = () => {
+    this.counter.addPlayerPoint()
   }
 
   removeBird = bird => {

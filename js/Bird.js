@@ -1,16 +1,18 @@
 export default class Bird {
   defaultConfig = {
     color: 'orange',
-    speed: 2 + Math.random() * 5,
+    speed: 1 + Math.random() * 2,
     position: 0,
   }
 
   constructor(config) {
     config = { ...this.defaultConfig, ...config }
-    const { color, speed, position, removeBird } = config
+    const { color, speed, position, onRemove, onClick, onEscape } = config
+    this.onClick = onClick
     this.color = color
     this.position = position
-    this.removeBird = removeBird
+    this.onRemove = onRemove
+    this.onEscape = onEscape
     this.speed = speed
     this.el = this.render()
     this.addClickHandler()
@@ -18,15 +20,21 @@ export default class Bird {
 
   addClickHandler() {
     this.el.addEventListener('click', () => {
-      this.el.classList.add('hit')
+      this.onClick()
+      this.remove()
     })
+  }
+
+  remove() {
+    this.onRemove(this)
+    this.el.remove()
   }
 
   update() {
     this.position = this.position + this.speed
     if (this.position > window.innerWidth) {
-      this.removeBird(this)
-      this.el.remove()
+      this.remove()
+      this.onEscape()
     } else {
       this.el.style.left = this.position + 'px'
     }
