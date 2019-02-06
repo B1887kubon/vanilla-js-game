@@ -4,4 +4,21 @@
   height: 40px;
   border-radius: 50%; }
 
+.hit {
+  background: crimson !important; }
+
+.counter {
+  width: 200px;
+  height: 38px;
+  background: white;
+  color: black;
+  position: absolute;
+  top: 55px;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  border: 2px solid; }
+
 /*# sourceMappingURL=style.css.map */
