@@ -41,9 +41,15 @@ body {
     position: absolute;
     height: 35px;
     width: 15px;
-    background: black;
+    background: #0d2417;
     bottom: 60px;
     left: 40%;
     border-radius: 4px 4px 0 0; }
+
+.bullet {
+  position: absolute;
+  width: 15px;
+  height: 20px;
+  background: silver; }
 
 /*# sourceMappingURL=style.css.map */

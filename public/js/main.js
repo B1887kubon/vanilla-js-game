@@ -96,6 +96,9 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Bird; });
+/* harmony import */ var _Entity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Entity */ "./js/Entity.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -104,24 +107,42 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 var Bird =
 /*#__PURE__*/
-function () {
+function (_Entity) {
+  _inherits(Bird, _Entity);
+
   function Bird(config) {
+    var _this;
+
     _classCallCheck(this, Bird);
 
-    _defineProperty(this, "defaultConfig", {
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bird).call(this));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "defaultConfig", {
       color: 'orange',
       speed: 1 + Math.random() * 2,
       position: {
         x: 0,
-        y: 150 + Math.random() * 100
+        y: 200 + Math.random() * 200
       }
     });
 
-    config = _objectSpread({}, this.defaultConfig, config);
+    config = _objectSpread({}, _this.defaultConfig, config);
     var _config = config,
         color = _config.color,
         speed = _config.speed,
@@ -129,60 +150,130 @@ function () {
         onRemove = _config.onRemove,
         onClick = _config.onClick,
         onEscape = _config.onEscape;
-    this.onClick = onClick;
-    this.color = color;
-    this.position = position;
-    this.onRemove = onRemove;
-    this.onEscape = onEscape;
-    this.speed = speed;
-    this.el = this.render();
-    this.addClickHandler();
+    _this.onClick = onClick;
+    _this.onRemove = onRemove;
+    _this.onEscape = onEscape;
+    _this.color = color;
+    _this.position = position;
+    _this.speed = speed;
+    _this.el = _this.render('bird', {
+      background: _this.color
+    });
+
+    _this.addClickHandler();
+
+    return _this;
   }
 
   _createClass(Bird, [{
     key: "addClickHandler",
     value: function addClickHandler() {
-      var _this = this;
+      var _this2 = this;
 
       this.el.addEventListener('click', function () {
-        _this.onClick();
+        _this2.onClick();
 
-        _this.remove();
+        _this2.remove();
       });
-    }
-  }, {
-    key: "remove",
-    value: function remove() {
-      this.onRemove(this);
-      this.el.remove();
     }
   }, {
     key: "update",
     value: function update() {
       this.position.x += this.speed;
-      this.position.y += 2 * Math.sin(this.position.x / 100);
 
       if (this.position.x > window.innerWidth) {
         this.remove();
         this.onEscape();
       } else {
-        this.el.style.top = this.position.y + 'px';
         this.el.style.left = this.position.x + 'px';
+        this.el.style.top = this.position.y + Math.sin(this.position.x / 100) * 100 + 'px';
       }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var el = document.createElement('div');
-      el.className = 'bird';
-      el.style.background = this.color;
-      document.body.insertAdjacentElement('beforeend', el);
-      return el;
     }
   }]);
 
   return Bird;
-}();
+}(_Entity__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./js/Bullet.js":
+/*!**********************!*\
+  !*** ./js/Bullet.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Bullet; });
+/* harmony import */ var _Entity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Entity */ "./js/Entity.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var Bullet =
+/*#__PURE__*/
+function (_Entity) {
+  _inherits(Bullet, _Entity);
+
+  function Bullet(config) {
+    var _this;
+
+    _classCallCheck(this, Bullet);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bullet).call(this));
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "position", {
+      x: 0,
+      y: window.innerHeight - 120
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "speed", 20);
+
+    var onRemove = config.onRemove,
+        positionX = config.positionX;
+    _this.onRemove = onRemove;
+    _this.position.x = positionX;
+    _this.el = _this.render('bullet', {
+      left: positionX + 'px'
+    });
+    return _this;
+  }
+
+  _createClass(Bullet, [{
+    key: "update",
+    value: function update() {
+      this.position.y -= this.speed;
+      this.el.style.top = this.position.y + 'px';
+
+      if (this.position.y < 0) {
+        this.remove();
+      }
+    }
+  }]);
+
+  return Bullet;
+}(_Entity__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
@@ -198,26 +289,50 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Counter; });
+/* harmony import */ var _Entity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Entity */ "./js/Entity.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 var Counter =
 /*#__PURE__*/
-function () {
+function (_Entity) {
+  _inherits(Counter, _Entity);
+
   function Counter() {
+    var _this;
+
     _classCallCheck(this, Counter);
 
-    _defineProperty(this, "playerPoints", 0);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Counter).call(this));
 
-    _defineProperty(this, "birdsPoints", 0);
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "playerPoints", 0);
 
-    this.el = this.render();
-    this.update();
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "birdsPoints", 0);
+
+    _this.el = _this.render('counter');
+
+    _this.update();
+
+    return _this;
   }
 
   _createClass(Counter, [{
@@ -237,17 +352,62 @@ function () {
     value: function update() {
       this.el.innerHTML = 'Player ' + this.playerPoints + ' : ' + this.birdsPoints + ' Birds';
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var el = document.createElement('div');
-      el.className = 'counter';
-      document.body.insertAdjacentElement('beforeend', el);
-      return el;
-    }
   }]);
 
   return Counter;
+}(_Entity__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./js/Entity.js":
+/*!**********************!*\
+  !*** ./js/Entity.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Entity; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Entity =
+/*#__PURE__*/
+function () {
+  function Entity() {
+    _classCallCheck(this, Entity);
+  }
+
+  _createClass(Entity, [{
+    key: "render",
+    value: function render(className, styles) {
+      var el = document.createElement('div');
+      el.className = className;
+
+      if (styles) {
+        Object.keys(styles).forEach(function (key) {
+          el.style[key] = styles[key];
+        });
+      }
+
+      document.body.insertAdjacentElement('beforeend', el);
+      return el;
+    }
+  }, {
+    key: "remove",
+    value: function remove() {
+      this.onRemove && this.onRemove(this);
+      this.el.remove();
+    }
+  }]);
+
+  return Entity;
 }();
 
 
@@ -267,6 +427,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Bird__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Bird */ "./js/Bird.js");
 /* harmony import */ var _Counter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Counter */ "./js/Counter.js");
 /* harmony import */ var _Hunter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Hunter */ "./js/Hunter.js");
+/* harmony import */ var _Bullet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Bullet */ "./js/Bullet.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -287,6 +448,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var Game =
 /*#__PURE__*/
 function () {
@@ -295,25 +457,59 @@ function () {
 
     _classCallCheck(this, Game);
 
-    _defineProperty(this, "entities", []);
+    _defineProperty(this, "birds", []);
+
+    _defineProperty(this, "bullets", []);
+
+    _defineProperty(this, "shoot", function (positionX) {
+      _this.bullets = [].concat(_toConsumableArray(_this.bullets), [new _Bullet__WEBPACK_IMPORTED_MODULE_3__["default"]({
+        onRemove: _this.removeBullet,
+        positionX: positionX
+      })]);
+    });
+
+    _defineProperty(this, "removeBird", function (bird) {
+      var index = _this.birds.indexOf(bird);
+
+      _this.birds = [].concat(_toConsumableArray(_this.birds.slice(0, index)), _toConsumableArray(_this.birds.slice(index + 1)));
+    });
+
+    _defineProperty(this, "removeBullet", function (bullet) {
+      var index = _this.bullets.indexOf(bullet);
+
+      _this.bullets = [].concat(_toConsumableArray(_this.bullets.slice(0, index)), _toConsumableArray(_this.bullets.slice(index + 1)));
+    });
 
     _defineProperty(this, "updateBirdsPoints", function () {
       _this.counter.addBirdsPoint();
     });
 
-    _defineProperty(this, "updatePlayerPoint", function () {
+    _defineProperty(this, "updatePlayerPoints", function () {
       _this.counter.addPlayerPoint();
     });
 
-    _defineProperty(this, "removeBird", function (bird) {
-      var index = _this.entities.indexOf(bird);
+    _defineProperty(this, "checkForBirdHit", function (bullet) {
+      var _bullet$position = bullet.position,
+          bulletX = _bullet$position.x,
+          bulletY = _bullet$position.y;
 
-      _this.entities = [].concat(_toConsumableArray(_this.entities.slice(0, index)), _toConsumableArray(_this.entities.slice(index + 1)));
+      _this.birds.forEach(function (bird) {
+        var _bird$position = bird.position,
+            birdX = _bird$position.x,
+            birdY = _bird$position.y;
+
+        if (birdX < bulletX && birdX + 40 > bulletX && birdY > bulletY && birdY - 40 < bulletY) {
+          bird.remove();
+          bullet.remove();
+
+          _this.updatePlayerPoints();
+        }
+      });
     });
 
     this.createCounter();
-    this.loop();
     this.createHunter();
+    this.loop();
   }
 
   _createClass(Game, [{
@@ -324,18 +520,19 @@ function () {
   }, {
     key: "createHunter",
     value: function createHunter() {
-      this.hunter = new _Hunter__WEBPACK_IMPORTED_MODULE_2__["default"]();
-      this.entities = [].concat(_toConsumableArray(this.entities), [this.hunter]);
+      this.hunter = new _Hunter__WEBPACK_IMPORTED_MODULE_2__["default"]({
+        onShoot: this.shoot
+      });
     }
   }, {
     key: "addBird",
     value: function addBird() {
       var config = {
         onRemove: this.removeBird,
-        onClick: this.updatePlayerPoint,
+        onClick: this.updatePlayerPoints,
         onEscape: this.updateBirdsPoints
       };
-      this.entities = [].concat(_toConsumableArray(this.entities), [new _Bird__WEBPACK_IMPORTED_MODULE_0__["default"](config)]);
+      this.birds = [].concat(_toConsumableArray(this.birds), [new _Bird__WEBPACK_IMPORTED_MODULE_0__["default"](config)]);
     }
   }, {
     key: "loop",
@@ -343,9 +540,11 @@ function () {
       var _this2 = this;
 
       Math.random() < 1 / 60 && this.addBird();
-      this.entities.forEach(function (entity) {
+      var entities = [].concat(_toConsumableArray(this.birds), _toConsumableArray(this.bullets), [this.hunter]);
+      entities.forEach(function (entity) {
         return entity.update();
       });
+      this.bullets.forEach(this.checkForBirdHit);
       requestAnimationFrame(function () {
         return _this2.loop();
       });
@@ -369,64 +568,84 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Hunter; });
+/* harmony import */ var _Entity__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Entity */ "./js/Entity.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 var Hunter =
 /*#__PURE__*/
-function () {
-  function Hunter() {
+function (_Entity) {
+  _inherits(Hunter, _Entity);
+
+  function Hunter(config) {
+    var _this;
+
     _classCallCheck(this, Hunter);
 
-    _defineProperty(this, "position", window.innerWidth / 2);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Hunter).call(this));
 
-    _defineProperty(this, "speed", 0);
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "position", window.innerWidth / 2);
 
-    this.el = this.render();
-    this.setupMovement();
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "speed", 0);
+
+    var onShoot = config.onShoot;
+    _this.onShoot = onShoot;
+    _this.el = _this.render('hunter');
+
+    _this.setupMovement();
+
+    return _this;
   }
 
   _createClass(Hunter, [{
     key: "update",
     value: function update() {
       this.position += this.speed;
-      this.el.style.left = this.position + this.speed + 'px';
+      this.el.style.left = this.position + 'px';
     }
   }, {
     key: "setupMovement",
     value: function setupMovement() {
-      var _this = this;
+      var _this2 = this;
 
       document.body.addEventListener('keydown', function (event) {
         if (event.key === 'ArrowLeft') {
-          _this.speed = -5;
+          _this2.speed = -8;
         } else if (event.key === 'ArrowRight') {
-          _this.speed = 5;
+          _this2.speed = 8;
+        } else if (event.key === ' ') {
+          _this2.onShoot(_this2.position);
         }
       });
       document.body.addEventListener('keyup', function (event) {
         if (['ArrowLeft', 'ArrowRight'].includes(event.key)) {
-          _this.speed = 0;
+          _this2.speed = 0;
         }
       });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var el = document.createElement('div');
-      el.className = 'hunter';
-      document.body.insertAdjacentElement('beforeend', el);
-      return el;
     }
   }]);
 
   return Hunter;
-}();
+}(_Entity__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
