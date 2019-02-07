@@ -1,8 +1,18 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  background: #333;
+  height: 100vh;
+  border-bottom: 35px solid green;
+  overflow: hidden; }
+
 .bird {
   position: absolute;
   width: 40px;
   height: 40px;
-  border-radius: 50%; }
+  border-radius: 50%;
+  box-shadow: 0 0 15px yellow; }
 
 .counter {
   width: 200px;
@@ -10,12 +20,30 @@
   background: white;
   color: black;
   position: absolute;
-  top: 55px;
+  top: 90%;
+  right: 4%;
   font-family: Arial, Helvetica, sans-serif;
   justify-content: center;
   align-items: center;
   display: flex;
   font-size: 20px;
   border: 2px solid; }
+
+.hunter {
+  position: absolute;
+  width: 100px;
+  height: 60px;
+  bottom: 0;
+  background: olivedrab;
+  border-radius: 10px 10px 0 0; }
+  .hunter:after {
+    content: '';
+    position: absolute;
+    height: 35px;
+    width: 15px;
+    background: black;
+    bottom: 60px;
+    left: 40%;
+    border-radius: 4px 4px 0 0; }
 
 /*# sourceMappingURL=style.css.map */

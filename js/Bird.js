@@ -2,7 +2,7 @@ export default class Bird {
   defaultConfig = {
     color: 'orange',
     speed: 1 + Math.random() * 2,
-    position: 0,
+    position: { x: 0, y: 150 + Math.random() * 100 },
   }
 
   constructor(config) {
@@ -31,12 +31,14 @@ export default class Bird {
   }
 
   update() {
-    this.position = this.position + this.speed
-    if (this.position > window.innerWidth) {
+    this.position.x += this.speed
+    this.position.y += 2 * Math.sin(this.position.x / 100)
+    if (this.position.x > window.innerWidth) {
       this.remove()
       this.onEscape()
     } else {
-      this.el.style.left = this.position + 'px'
+      this.el.style.top = this.position.y + 'px'
+      this.el.style.left = this.position.x + 'px'
     }
   }
 
